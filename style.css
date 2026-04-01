@@ -155,6 +155,155 @@ input:focus, select:focus {
     color: white;
 }
 
+/* Results Screen specific */
+.container.glass.wide {
+    max-width: 1000px;
+    position: relative;
+}
+
+.results-header {
+    margin-bottom: 2rem;
+}
+
+.calories-display {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.kcal-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--glass-border);
+}
+
+.kcal-card.highlight {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+    border-color: var(--primary);
+}
+
+.kcal-card .label {
+    display: block;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.kcal-card .value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: white;
+}
+
+.results-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 10px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.4s;
+}
+
+.plan-section {
+    text-align: left;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+
+.plan-section h3 {
+    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+    color: #cbd5e1;
+}
+
+.meal-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.meal-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border-left: 4px solid var(--primary);
+}
+
+.meal-item h4 {
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+}
+
+.food-checklist {
+    margin-top: 2rem;
+}
+
+.food-checklist ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.5rem;
+}
+
+.food-checklist li::before {
+    content: "✅";
+    margin-right: 8px;
+}
+
+.workout-plan {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    line-height: 1.8;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.tip-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--glass-border);
+}
+
+.tip-card b {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
 @media (max-width: 640px) {
     .goal-grid {
         grid-template-columns: 1fr;
@@ -164,6 +313,9 @@ input:focus, select:focus {
     }
     .input-group.full-width {
         grid-column: span 1;
+    }
+    .calories-display {
+        flex-direction: column;
     }
 }
 

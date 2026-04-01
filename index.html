@@ -73,7 +73,57 @@
                 </form>
             </div>
         </section>
-    </main>
+
+        <!-- Ekran Wyników: Plan działania -->
+        <section id="results-screen" class="screen">
+            <div class="container glass wide">
+                <button class="back-btn" id="edit-data">← Edytuj dane</button>
+                <div class="results-header">
+                    <h1 class="title">Twój <span id="result-title">Plan</span></h1>
+                    <div class="calories-display">
+                        <div class="kcal-card">
+                            <span class="label">Twoje TDEE (CPM)</span>
+                            <span class="value" id="tdee-val">2500 kcal</span>
+                        </div>
+                        <div class="kcal-card highlight">
+                            <span class="label">Cel kaloryczny</span>
+                            <span class="value" id="target-kcal-val">2000 kcal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-tabs">
+                    <button class="tab-btn active" data-tab="tab-diet">🍽️ Dieta</button>
+                    <button class="tab-btn" data-tab="tab-workout">💪 Trening</button>
+                    <button class="tab-btn" data-tab="tab-tips">💡 Wskazówki</button>
+                </div>
+
+                <div id="tab-diet" class="tab-content active">
+                    <div class="plan-section">
+                        <h3>Przykładowy jadłospis</h3>
+                        <div class="meal-list" id="diet-list"></div>
+                        <div class="food-checklist">
+                            <h3>Co warto jeść?</h3>
+                            <ul id="food-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-workout" class="tab-content">
+                    <div class="plan-section">
+                        <h3>Twój plan treningowy</h3>
+                        <div class="workout-plan" id="workout-desc"></div>
+                    </div>
+                </div>
+
+                <div id="tab-tips" class="tab-content">
+                    <div class="plan-section">
+                        <h3>Wskazówki dla Ciebie</h3>
+                        <div class="tips-grid" id="tips-list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
     <script src="script.js"></script>
 </body>
 </html>
