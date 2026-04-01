@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tdee = Math.round(bmr * data.activity);
         const targetKcal = data.goal === 'lose' ? tdee - 500 : tdee + 300;
 
-        document.querySelector('#result-title').textContent = data.goal === 'lose' ? 'Redukcja' : 'Budowa Masy';
+        document.querySelector('#result-title').textContent = data.goal === 'lose' ? 'Plan: Redukcja' : 'Plan: Budowa Masy';
         document.querySelector('#tdee-val').textContent = `${tdee} kcal`;
         document.querySelector('#target-kcal-val').textContent = `${targetKcal} kcal`;
 
