@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  profile   Profile?
+  progress  Progress[]
+  workouts  Workout[]
+}
+
+model Profile {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  age       Int
+  gender    String
+  height    Float
+  weight    Float
+  activity  Float
+  goal      String   // lose, gain, maintain
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Progress {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date            DateTime @default(now())
+  weight          Float?
+  caloriesConsumed Int?
+  workoutDone     Boolean  @default(false)
+}
+
+model Workout {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  date        DateTime @default(now())
+  isCompleted Boolean  @default(false)
+  exercises   String   // JSON string of exercises
+}
+
+model Meal {
+  id        String   @id @default(uuid())
+  name      String
+  type      String   // breakfast, lunch, dinner, snack
+  goal      String   // lose, gain, maintain
+  calories  Int
+  protein   Int
+  carbs     Int
+  fats      Int
+}
