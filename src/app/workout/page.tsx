@@ -8,107 +8,90 @@ export default function WorkoutPage() {
     const [goal, setGoal] = useState("lose");
     const [loading, setLoading] = useState(true);
 
-    // Timer state
     const [timeLeft, setTimeLeft] = useState(60);
     const [timerActive, setTimerActive] = useState(false);
 
-    useEffect(() => {
-        // Mock fetch to simulate taking the goal from API / Cookies
-        setLoading(false);
-    }, []);
+    useEffect(() => { setLoading(false); }, []);
 
     useEffect(() => {
         let interval: NodeJS.Timeout;
-        if (timerActive && timeLeft > 0) {
-            interval = setInterval(() => {
-                setTimeLeft(prev => prev - 1);
-            }, 1000);
-        } else if (timeLeft === 0) {
-            setTimerActive(false);
-        }
+        if (timerActive && timeLeft > 0) interval = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
+        else if (timeLeft === 0) setTimerActive(false);
         return () => clearInterval(interval);
     }, [timerActive, timeLeft]);
 
-    const toggleTimer = () => {
-        if (timeLeft === 0) setTimeLeft(60);
-        setTimerActive(!timerActive);
-    };
+    const toggleTimer = () => { if (timeLeft === 0) setTimeLeft(60); setTimerActive(!timerActive); };
 
     const workouts = {
         lose: [
-            { name: "Pajacyki", sets: "3x45s", img: "🤸" },
-            { name: "Przysiady z wyskokiem", sets: "3x15", img: "🦵" },
-            { name: "Pompki", sets: "3x12", img: "💪" },
-            { name: "Plank (Deska)", sets: "3x60s", img: "🪵" }
+            { name: "Pajacyki", sets: "3 serie x 45 sek", img: "🤸" },
+            { name: "Przysiady z wyskokiem", sets: "4 serie x 15", img: "🦵" },
+            { name: "Pompki", sets: "3 serie x 12", img: "💪" },
+            { name: "Deska (Plank)", sets: "3 serie x 60 sek", img: "🪵" }
         ],
         gain: [
-            { name: "Wyciskanie hantli (klatka)", sets: "4x8-10", img: "🏋️‍♂️" },
-            { name: "Wiosłowanie hantlem", sets: "4x8-10", img: "🚣" },
-            { name: "Przysiady z obciążeniem", sets: "4x8", img: "🦵" },
-            { name: "Wyciskanie żołnierskie (barki)", sets: "4x10", img: "🦍" }
+            { name: "Wyciskanie sztangielek", sets: "4 serie x 10", img: "🏋️‍♂️" },
+            { name: "Wiosłowanie w opadzie", sets: "4 serie x 10", img: "🚣" },
+            { name: "Przysiady ze sztangą", sets: "4 serie x 8", img: "🦵" },
+            { name: "Wyciskanie pionowe", sets: "4 serie x 10", img: "🦍" }
         ],
         maintain: [
-            { name: "Przysiady", sets: "3x15", img: "🦵" },
-            { name: "Wykroki", sets: "3x12", img: "🚶" },
-            { name: "Pompki opierając o krzesło", sets: "3x15", img: "💪" },
-            { name: "Brzuszki / Spięcia", sets: "3x20", img: "🤸" }
+            { name: "Długie przysiady", sets: "3 serie x 15", img: "🦵" },
+            { name: "Wykroki", sets: "3 serie x 12 na nogę", img: "🚶" },
+            { name: "Klasyczne pompki", sets: "3 serie x 15", img: "💪" },
+            { name: "Spięcia brzucha", sets: "3 serie x 20", img: "🤸" }
         ]
     };
 
     const currentWorkout = workouts[goal as keyof typeof workouts] || workouts["maintain"];
 
     return (
-        <div className="min-h-screen bg-slate-950 text-white p-6 pb-24 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-            <header className="max-w-4xl mx-auto flex items-center justify-between mb-8 relative z-10">
-                <div className="flex items-center gap-4">
-                    <Link href="/dashboard" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all font-bold">←</Link>
-                    <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-orange-500">Twój Trening</h1>
-                </div>
+        <div className="min-h-screen bg-gray-50 text-gray-900 p-4 md:p-8 pb-24 font-sans">
+            <header className="max-w-3xl mx-auto flex items-center justify-between mb-8">
+                <Link href="/dashboard" className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-all font-bold shadow-sm">←</Link>
+                <h1 className="text-2xl font-black text-gray-900">Twój Trening</h1>
             </header>
 
-            <main className="max-w-4xl mx-auto space-y-6 relative z-10">
+            <main className="max-w-3xl mx-auto space-y-6">
 
-                {/* Sticky Timer */}
-                <div className="sticky top-6 bg-slate-900/80 backdrop-blur-xl border border-white/10 p-6 rounded-3xl z-20 flex items-center justify-between shadow-2xl">
+                <div className="sticky top-4 bg-black/90 backdrop-blur-xl border border-gray-800 p-6 rounded-3xl z-20 flex items-center justify-between shadow-2xl">
                     <div>
-                        <h3 className="text-sm text-slate-400 font-bold mb-1">Stoper przerw</h3>
-                        <div className="text-3xl font-black font-mono text-rose-400">
+                        <h3 className="text-xs uppercase tracking-widest text-emerald-400 font-bold mb-1">Czas odpoczynku</h3>
+                        <div className="text-4xl font-black font-mono text-white">
                             {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
                         </div>
                     </div>
-                    <div className="flex gap-2">
-                        <button onClick={() => setTimeLeft(60)} className="w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-all text-white">
+                    <div className="flex gap-3">
+                        <button onClick={() => setTimeLeft(60)} className="w-12 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-all text-white font-bold text-lg">
                             ↺
                         </button>
-                        <button onClick={toggleTimer} className={`w-12 h-12 rounded-full border border-white/10 flex items-center justify-center transition-all text-white font-bold ${timerActive ? 'bg-rose-500 hover:bg-rose-600' : 'bg-indigo-500 hover:bg-indigo-600'}`}>
+                        <button onClick={toggleTimer} className={`w-14 h-14 rounded-full flex items-center justify-center transition-all text-black font-black text-xl shadow-lg ${timerActive ? 'bg-white hover:bg-gray-200' : 'bg-emerald-500 hover:bg-emerald-400 shadow-emerald-500/50'}`}>
                             {timerActive ? '❚❚' : '▶'}
                         </button>
                     </div>
                 </div>
 
-                <div className="grid gap-4">
+                <div className="grid gap-5 pt-4">
                     {currentWorkout.map((ex, idx) => (
-                        <div key={idx} className="bg-white/5 border border-white/10 rounded-3xl p-6 flex items-center justify-between hover:bg-white/10 transition-all shadow-lg shadow-black/50">
+                        <div key={idx} className="bg-white border border-gray-200 rounded-3xl p-6 flex items-center justify-between hover:border-black hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all group">
                             <div className="flex items-center gap-6">
-                                <div className="text-5xl">{ex.img}</div>
+                                <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center text-4xl border border-gray-100 shrink-0 group-hover:bg-gray-100 transition-colors">{ex.img}</div>
                                 <div>
-                                    <h3 className="text-lg font-bold text-white mb-2">{ex.name}</h3>
-                                    <div className="inline-block bg-white/10 text-rose-400 px-3 py-1 rounded-full text-xs font-bold tracking-wider">
+                                    <h3 className="text-lg font-bold text-gray-900 mb-2">{ex.name}</h3>
+                                    <div className="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-bold tracking-wider">
                                         {ex.sets}
                                     </div>
                                 </div>
                             </div>
-                            <label className="cursor-pointer pl-4 flex-shrink-0">
-                                <input type="checkbox" className="w-8 h-8 rounded-xl appearance-none bg-black/40 border-2 border-white/20 checked:bg-rose-500 checked:border-rose-500 transition-all shadow-inner relative checked:after:content-['✓'] checked:after:absolute checked:after:text-white checked:after:font-bold checked:after:left-[7px] checked:after:top-[2px] checked:after:text-lg" />
+                            <label className="cursor-pointer pl-4 shrink-0 flex items-center justify-center">
+                                <input type="checkbox" className="w-10 h-10 rounded-full appearance-none bg-gray-50 border-2 border-gray-200 checked:bg-black checked:border-black transition-all cursor-pointer relative checked:after:content-['✓'] checked:after:absolute checked:after:text-white checked:after:font-bold checked:after:left-[11px] checked:after:top-[6px] checked:after:text-xl hover:border-black" />
                             </label>
                         </div>
                     ))}
                 </div>
 
-                <button className="w-full bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white font-bold py-5 rounded-2xl shadow-lg shadow-rose-500/20 transition-all active:scale-[0.98] mt-8 text-lg">
-                    Zakończ Trening 🚀
+                <button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black py-6 rounded-2xl shadow-lg shadow-emerald-500/20 transition-all active:scale-[0.98] mt-10 text-lg uppercase tracking-wider block text-center">
+                    Zakończyłem trening! 🚀
                 </button>
             </main>
         </div>

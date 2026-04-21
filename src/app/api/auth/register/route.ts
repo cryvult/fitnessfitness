@@ -23,7 +23,8 @@ export async function POST(req: Request) {
         });
 
         return response;
-    } catch (error) {
-        return NextResponse.json({ error: "Błąd serwera" }, { status: 500 });
+    } catch (error: any) {
+        console.error("REGISTER ERROR:", error);
+        return NextResponse.json({ error: "Błąd serwera: " + error?.message }, { status: 500 });
     }
 }
